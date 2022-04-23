@@ -7,7 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class UserLoginTests {
 
-    //Постоянный теестовый курьер для проверки логина
+    //Постоянный теестовый пользователь для проверки логина
     private final String EMAIL = "login@mail.ru";
     private final String PASSWORD = "12345";
     //Объекты для тестов

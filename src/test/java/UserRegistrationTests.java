@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class UserRegistrationTests {
 
-    //Генерация имени и почты для тестового курьера, пароль одинаковый для удобства
+    //Генерация имени и почты для тестового пользователя, пароль одинаковый для удобства
     private final String NAME = "test" + RandomStringUtils.randomAlphabetic(3);
     private final String EMAIL = "test" + RandomStringUtils.randomAlphabetic(3) + "@mail.ru";
     private final String PASSWORD = "12345";
@@ -34,7 +34,7 @@ public class UserRegistrationTests {
 
     //Регистрация существующего пользователя
     @Test
-    @DisplayName("Check correct registration of user with valid credentials")
+    @DisplayName("Check registration of the same user")
     public void checkRegistrationOfTheSameUser() {
         userApi.registration(registration);
         ValidatableResponse response = userApi.registration(registration);
