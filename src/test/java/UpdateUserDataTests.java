@@ -40,6 +40,7 @@ public class UpdateUserDataTests {
         userApi.changeDataWithAuth(loginForTokenWithNewUserData, userData);
     }
 
+    //Меняем данные тестового пользователя на новые с уже использующейся почтой
     @Test
     @DisplayName("Check updating of existing email data with authorized user")
     public void checkUpdatingOfUserDataForExistingEmail() {

@@ -26,7 +26,7 @@ public class UserApiPattern extends StellarBurgerRestPattern {
 
         String bearerToken = given().spec(getBaseSpec()).body(loginData).post(LOGIN_PATH).then().extract().path("accessToken");
 
-        return given().log().all().header("Authorization", bearerToken)
+        return given().header("Authorization", bearerToken)
                 .spec(getBaseSpec()).body(updateData).patch(CHANGE_USER_DATA_PATH).then();
     }
 
