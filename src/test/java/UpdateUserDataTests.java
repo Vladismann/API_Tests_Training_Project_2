@@ -11,6 +11,8 @@ public class UpdateUserDataTests {
     private final String NAME = "update";
     private final String EMAIL = "update@mail.ru";
     private final String PASSWORD = "12345";
+    //Почта существующего пользователя
+    private final String EXISTING_EMAIL = "test@mail.ru";
     //Новые данные для изменения
     private final String NEW_NAME = "newData";
     private final String NEW_EMAIL = "newData@mail.ru";
@@ -21,6 +23,7 @@ public class UpdateUserDataTests {
     UserDataPattern loginForTokenWithFirstUserData = new UserDataPattern(EMAIL, PASSWORD);
     UserDataPattern newUserData = new UserDataPattern(NEW_NAME, NEW_EMAIL, NEW_PASSWORD);
     UserDataPattern loginForTokenWithNewUserData = new UserDataPattern(NEW_EMAIL, NEW_PASSWORD);
+    UserDataPattern dataWithExistingEmail = new UserDataPattern(NEW_NAME, EXISTING_EMAIL, NEW_PASSWORD);
 
     @Before
     public void setUp() {
@@ -35,6 +38,13 @@ public class UpdateUserDataTests {
         response.statusCode(200).and().assertThat().body("success", is(true));
         //Возвращаем изначальные данные
         userApi.changeDataWithAuth(loginForTokenWithNewUserData, userData);
+    }
+
+    @Test
+    @DisplayName("Check updating of existing email data with authorized user")
+    public void checkUpdatingOfUserDataForExistingEmail() {
+        ValidatableResponse response = userApi.changeDataWithAuth(loginForTokenWithFirstUserData, dataWithExistingEmail);
+        response.statusCode(403).and().assertThat().body("message", is("User with such email already exists"));
     }
 
     //Меняем данные пользователя без авторизации
