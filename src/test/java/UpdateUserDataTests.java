@@ -51,7 +51,7 @@ public class UpdateUserDataTests {
     //Меняем данные пользователя без авторизации
     @Test
     @DisplayName("Check updating of all user data without authorization")
-    public void checkUpdatingOfUserDataWithoutAuthorization(){
+    public void checkUpdatingOfUserDataWithoutAuthorization() {
         ValidatableResponse response = userApi.changeDataWithoutAuth(newUserData);
         response.statusCode(401).and().assertThat().body("message", is("You should be authorised"));
     }
