@@ -34,7 +34,7 @@ public class UserLoginTests {
     @DisplayName("Check login of user with invalid password")
     public void checkLoginWithIncorrectPassword() {
         ValidatableResponse response = userApi.login(loginWithIncorrectPassword);
-        response.statusCode(401).and().assertThat().body("success", is(false));
+        response.statusCode(401).and().assertThat().body("message", is("email or password are incorrect"));
     }
 
     //Проверяем, что авторизация с некорректной почтой возвращает статус код = 401 и success = false
@@ -42,6 +42,6 @@ public class UserLoginTests {
     @DisplayName("Check login of user with invalid email")
     public void checkLoginWithIncorrectEmail() {
         ValidatableResponse response = userApi.login(loginWithIncorrectEmail);
-        response.statusCode(401).and().assertThat().body("success", is(false));
+        response.statusCode(401).and().assertThat().body("message", is("email or password are incorrect"));
     }
 }
