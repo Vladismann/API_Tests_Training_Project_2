@@ -32,7 +32,7 @@ public class UpdateUserDataTests {
 
     //Меняем данные тестового пользователя на новые с авторизацией и после теста возвращаем старые данные
     @Test
-    @DisplayName("Check updating of all user data with authorized user")
+    @DisplayName("Updating of all user data with authorized user")
     public void checkUpdatingOfUserDataBeingAuthorized() {
         ValidatableResponse response = userApi.changeDataWithAuth(loginForTokenWithFirstUserData, newUserData);
         response.statusCode(200).and().assertThat().body("success", is(true));
@@ -42,7 +42,7 @@ public class UpdateUserDataTests {
 
     //Меняем данные тестового пользователя на новые с уже использующейся почтой
     @Test
-    @DisplayName("Check updating of existing email data with authorized user")
+    @DisplayName("Updating of user data with existing email")
     public void checkUpdatingOfUserDataForExistingEmail() {
         ValidatableResponse response = userApi.changeDataWithAuth(loginForTokenWithFirstUserData, dataWithExistingEmail);
         response.statusCode(403).and().assertThat().body("message", is("User with such email already exists"));
@@ -50,7 +50,7 @@ public class UpdateUserDataTests {
 
     //Меняем данные пользователя без авторизации
     @Test
-    @DisplayName("Check updating of all user data without authorization")
+    @DisplayName("Updating of user data without authorization")
     public void checkUpdatingOfUserDataWithoutAuthorization() {
         ValidatableResponse response = userApi.changeDataWithoutAuth(newUserData);
         response.statusCode(401).and().assertThat().body("message", is("You should be authorised"));

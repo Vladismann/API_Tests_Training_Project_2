@@ -26,7 +26,7 @@ public class UserRegistrationTests {
 
     //Регистрация уникального пользователя с корректными данными
     @Test
-    @DisplayName("Check correct registration of user with valid credentials")
+    @DisplayName("Correct registration of the user with valid credentials")
     public void checkRegistration() {
         ValidatableResponse response = userApi.registration(registration);
         response.statusCode(200).and().assertThat().body("success", is(true));
@@ -34,7 +34,7 @@ public class UserRegistrationTests {
 
     //Регистрация существующего пользователя
     @Test
-    @DisplayName("Check registration of the same user")
+    @DisplayName("Registration of the same user")
     public void checkRegistrationOfTheSameUser() {
         userApi.registration(registration);
         ValidatableResponse response = userApi.registration(registration);
@@ -43,7 +43,7 @@ public class UserRegistrationTests {
 
     //Регистрация пользователя без имени
     @Test
-    @DisplayName("Check registration of user without name")
+    @DisplayName("Registration of the user without name")
     public void checkRegistrationOfUserWithoutName() {
         ValidatableResponse response = userApi.registration(registrationWithoutName);
         response.statusCode(403).and().assertThat().body("message", is("Email, password and name are required fields"));
@@ -51,7 +51,7 @@ public class UserRegistrationTests {
 
     //Регистрация пользователя без почты
     @Test
-    @DisplayName("Check registration of user without email")
+    @DisplayName("Registration of the user without email")
     public void checkRegistrationOfUserWithoutEmail() {
         ValidatableResponse response = userApi.registration(registrationWithoutEmail);
         response.statusCode(403).and().assertThat().body("message", is("Email, password and name are required fields"));
@@ -59,7 +59,7 @@ public class UserRegistrationTests {
 
     //Регистрация пользователя без пароля
     @Test
-    @DisplayName("Check registration of user without password")
+    @DisplayName("Registration the of user without password")
     public void checkRegistrationOfUserWithoutPassword() {
         ValidatableResponse response = userApi.registration(registrationWithoutPassword);
         response.statusCode(403).and().assertThat().body("message", is("Email, password and name are required fields"));

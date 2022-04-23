@@ -19,13 +19,13 @@ public class OrderApiPattern extends StellarBurgerRestPattern {
         return given().spec(getBaseSpec()).get(ORDER_PATH).then();
     }
 
-    @Step("Create Order Without auth")
+    @Step("Create Order with auth")
     public ValidatableResponse createOrderWithAuth(CreationOfOrderDataPattern order, String token) {
 
         return given().header("Authorization", token).spec(getBaseSpec()).body(order).post(ORDER_PATH).then();
     }
 
-    @Step("Create Order Without auth")
+    @Step("Create Order without auth")
     public ValidatableResponse createOrderWithoutAuth(CreationOfOrderDataPattern order) {
 
         return given().spec(getBaseSpec()).body(order).post(ORDER_PATH).then();

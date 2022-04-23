@@ -11,14 +11,14 @@ public class CreateOrdersTests {
     private final String EMAIL = "order@mail.ru";
     private final String PASSWORD = "12345";
     //Ингредиенты для создания заказа
-    String[] ingredient = {"61c0c5a71d1f82001bdaaa6d"};
-    String[] emptyIngredient = {};
-    String[] invalidIngredient = {"61c0c5a71d1f82001bdAAA6"};
+    private final String[] INGREDIENT = {"61c0c5a71d1f82001bdaaa6d"};
+    private final String[] EMPTY_INGREDIENT = {};
+    private final String[] INVALID_INGREDIENT = {"61c0c5a71d1f82001bdAAA6"};
     //Объекты для теста
     UserDataPattern loginForToken = new UserDataPattern(EMAIL, PASSWORD);
-    CreationOfOrderDataPattern order = new CreationOfOrderDataPattern(ingredient);
-    CreationOfOrderDataPattern emptyOrder = new CreationOfOrderDataPattern(emptyIngredient);
-    CreationOfOrderDataPattern invalidOrder = new CreationOfOrderDataPattern(invalidIngredient);
+    CreationOfOrderDataPattern order = new CreationOfOrderDataPattern(INGREDIENT);
+    CreationOfOrderDataPattern emptyOrder = new CreationOfOrderDataPattern(EMPTY_INGREDIENT);
+    CreationOfOrderDataPattern invalidOrder = new CreationOfOrderDataPattern(INVALID_INGREDIENT);
     OrderApiPattern orderApi;
 
     @Before
@@ -28,8 +28,8 @@ public class CreateOrdersTests {
 
     //Создаем заказ авторизованным пользователем
     @Test
-    @DisplayName("Create order with authorized user")
-    public void checkCreationOfOrderWithAuth() {
+    @DisplayName("Create the order being authorized")
+    public void checkCreationOfOrderBeingAuth() {
         UserApiPattern userApi = new UserApiPattern();
         String token = userApi.login(loginForToken).extract().path("accessToken");
         ValidatableResponse response = orderApi.createOrderWithAuth(order, token);
@@ -38,8 +38,8 @@ public class CreateOrdersTests {
 
     //Создаем заказ без ингредиента
     @Test
-    @DisplayName("Create order with authorized user without ingredients")
-    public void checkCreationOfOrderWithAuthWithoutIngredients() {
+    @DisplayName("Create the order being authorized user without ingredients")
+    public void checkCreationOfOrderBeingAuthWithoutIngredients() {
         UserApiPattern userApi = new UserApiPattern();
         String token = userApi.login(loginForToken).extract().path("accessToken");
         ValidatableResponse response = orderApi.createOrderWithAuth(emptyOrder, token);
@@ -48,8 +48,8 @@ public class CreateOrdersTests {
 
     //Создаем заказ с некорректным ингредиентом
     @Test
-    @DisplayName("Create order with authorized user with invalid ingredient")
-    public void checkCreationOfOrderWithAuthWithInvalidIngredient() {
+    @DisplayName("Create the order being authorized user with the invalid ingredient")
+    public void checkCreationOfOrderBeingAuthWithInvalidIngredient() {
         UserApiPattern userApi = new UserApiPattern();
         String token = userApi.login(loginForToken).extract().path("accessToken");
         ValidatableResponse response = orderApi.createOrderWithAuth(invalidOrder, token);
@@ -58,7 +58,7 @@ public class CreateOrdersTests {
 
     //Создаем заказ без авторизации
     @Test
-    @DisplayName("Create order with unauthorized user")
+    @DisplayName("Create the order being unauthorized")
     public void checkCreationOfOrderWithoutAuthorization() {
         ValidatableResponse response = orderApi.createOrderWithoutAuth(order);
         response.statusCode(200).assertThat().body("success", is(true));

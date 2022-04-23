@@ -21,7 +21,7 @@ public class GetUserOrdersTests {
 
     //Получаем заказы авторизованного пользователя
     @Test
-    @DisplayName("Get user's orders with authorized user")
+    @DisplayName("Get user's orders being authorized")
     public void getUserOrdersBeingAuthorized() {
         UserApiPattern userApi = new UserApiPattern();
         String token = userApi.login(loginForToken).extract().path("accessToken");
@@ -31,7 +31,7 @@ public class GetUserOrdersTests {
 
     //Проверяем невозможность получить заказы будучи неавторизованным
     @Test
-    @DisplayName("Get user's orders with unauthorized user")
+    @DisplayName("Get user's orders being unauthorized")
     public void getUserOrdersWithoutAuthorization() {
         ValidatableResponse response = orderApi.getUserOrdersWithoutAuth();
         response.statusCode(401).and().assertThat().body("message", is("You should be authorised"));

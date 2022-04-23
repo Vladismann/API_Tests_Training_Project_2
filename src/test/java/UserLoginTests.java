@@ -21,25 +21,25 @@ public class UserLoginTests {
         userApi = new UserApiPattern();
     }
 
-    //Проверяем, что авторизация с корректными данными возвращает статус код = 200 и success = true
+    //Логин существующего пользователя с корректными данными
     @Test
-    @DisplayName("Check correct login of user with valid credentials")
+    @DisplayName("Correct login of the user with valid credentials")
     public void checkCorrectLogin() {
         ValidatableResponse response = userApi.login(login);
         response.statusCode(200).and().assertThat().body("success", is(true));
     }
 
-    //Проверяем, что авторизация с некорректным паролем возвращает статус код = 401 и success = false
+    //Авторизация с некорректным паролем
     @Test
-    @DisplayName("Check login of user with invalid password")
+    @DisplayName("Login of the user with invalid password")
     public void checkLoginWithIncorrectPassword() {
         ValidatableResponse response = userApi.login(loginWithIncorrectPassword);
         response.statusCode(401).and().assertThat().body("message", is("email or password are incorrect"));
     }
 
-    //Проверяем, что авторизация с некорректной почтой возвращает статус код = 401 и success = false
+    //Авторизация с некорректной почтой
     @Test
-    @DisplayName("Check login of user with invalid email")
+    @DisplayName("Login of the user with invalid email")
     public void checkLoginWithIncorrectEmail() {
         ValidatableResponse response = userApi.login(loginWithIncorrectEmail);
         response.statusCode(401).and().assertThat().body("message", is("email or password are incorrect"));
