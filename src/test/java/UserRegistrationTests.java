@@ -30,6 +30,8 @@ public class UserRegistrationTests {
     public void checkRegistration() {
         ValidatableResponse response = userApi.registration(registration);
         response.statusCode(200).and().assertThat().body("success", is(true));
+        String token = response.extract().path("accessToken");
+        userApi.deletion(token);
     }
 
     //Регистрация существующего пользователя

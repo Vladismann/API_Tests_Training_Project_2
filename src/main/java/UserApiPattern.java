@@ -36,4 +36,10 @@ public class UserApiPattern extends StellarBurgerRestPattern {
         return given().spec(getBaseSpec()).body(updateData).patch(CHANGE_USER_DATA_PATH).then();
     }
 
+    @Step("Deletion of user")
+    public ValidatableResponse deletion(String bearerToken) {
+
+        return given().header("Authorization", bearerToken).spec(getBaseSpec()).delete(CHANGE_USER_DATA_PATH).then();
+    }
+
 }
